@@ -1,7 +1,160 @@
 ﻿@page "/"
+@using Blazor.Extensions.Canvas
+@using Blazor.Extensions.Canvas.Canvas2D
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Neuroewolucja Aut</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container text-center mt-3">
+    <h3>Generacja: <strong>@Generation</strong> | Najlepszy wynik: <strong>@((int)BestFitness)</strong> | Żywych: <strong>@AliveCount</strong></h3>
 
-Welcome to your new app.
+    <div style="border: 2px solid #333; display: inline-block;">
+        <BECanvas Width="800" Height="600" @ref="_canvasReference"></BECanvas>
+    </div>
+
+    <div class="mt-2">
+        <button class="btn btn-success" @onclick="StartSimulation" disabled="@IsRunning">Start</button>
+        <button class="btn btn-danger" @onclick="StopSimulation">Stop</button>
+        <button class="btn btn-warning" @onclick="ResetSimulation">Reset</button>
+    </div>
+</div>
+
+@code {
+    private BECanvasComponent _canvasReference;
+    private Canvas2DContext _context;
+
+    private bool IsRunning = false;
+    private int Generation = 1;
+    private double BestFitness = 0;
+    private int AliveCount = 0;
+
+    private List<Car> Cars = new List<Car>();
+    private const int PopulationSize = 50;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _context = await _canvasReference.CreateCanvas2DAsync();
+            InitializePopulation();
+            await DrawFrame();
+        }
+    }
+
+    private void InitializePopulation()
+    {
+        Cars.Clear();
+        for (int i = 0; i < PopulationSize; i++)
+        {
+            Cars.Add(new Car());
+        }
+        Generation = 1;
+        BestFitness = 0;
+        AliveCount = PopulationSize;
+    }
+
+    private async Task StartSimulation()
+    {
+        if (IsRunning) return;
+        IsRunning = true;
+        await GameLoop();
+    }
+
+    private void StopSimulation() => IsRunning = false;
+
+    private void ResetSimulation()
+    {
+        IsRunning = false;
+        InitializePopulation();
+        StateHasChanged();
+    }
+
+    private async Task GameLoop()
+    {
+        while (IsRunning)
+        {
+            bool allDead = true;
+            AliveCount = 0;
+
+            foreach (var car in Cars)
+            {
+                car.Update();
+                if (!car.IsDead)
+                {
+                    allDead = false;
+                    AliveCount++;
+                }
+                if (car.Fitness > BestFitness) BestFitness = car.Fitness;
+            }
+
+            if (allDead)
+            {
+                EvolveNextGeneration();
+            }
+
+            await DrawFrame();
+
+            StateHasChanged();
+
+            await Task.Delay(16);
+        }
+    }
+
+    private void EvolveNextGeneration()
+    {
+        var bestCar = Cars.OrderByDescending(c => c.Fitness).First();
+        BestFitness = bestCar.Fitness;
+
+        var newCars = new List<Car>();
+
+        var champion = new Car(bestCar.Brain);
+        champion.Brain.Mutate(0); 
+        newCars.Add(champion);
+
+        for (int i = 1; i < PopulationSize; i++)
+        {
+            var child = new Car(bestCar.Brain);
+            child.Brain.Mutate(0.2); 
+            newCars.Add(child);
+        }
+
+        Cars = newCars;
+        Generation++;
+    }
+
+    private async Task DrawFrame()
+    {
+        await _context.BeginBatchAsync();
+
+        await _context.ClearRectAsync(0, 0, 800, 600);
+
+        await _context.SetFillStyleAsync("#f0f0f0");
+        await _context.FillRectAsync(0, 0, 800, 600);
+
+        foreach (var car in Cars)
+        {
+            await _context.SaveAsync();
+
+            await _context.TranslateAsync(car.X, car.Y);
+            await _context.RotateAsync(car.Angle);
+
+            if (car.IsDead)
+            {
+                await _context.SetFillStyleAsync("rgba(255, 0, 0, 0.3)"); 
+            }
+            else
+            {
+                await _context.SetFillStyleAsync("blue");
+            }
+
+            await _context.FillRectAsync(-20, -10, 40, 20);
+
+            await _context.SetFillStyleAsync("yellow");
+            await _context.FillRectAsync(10, -8, 5, 5);
+            await _context.FillRectAsync(10, 3, 5, 5);
+
+            await _context.RestoreAsync();
+        }
+
+        await _context.EndBatchAsync();
+    }
+}
