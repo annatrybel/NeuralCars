@@ -8,7 +8,7 @@
 <PageTitle>Neuroewolucja Aut</PageTitle>
 
 <div class="container text-center mt-3">
-    <h3>Generacja: <strong>@Generation</strong> | Najlepszy wynik: <strong>@((int)BestFitness)</strong> | Żywych: <strong>@AliveCount</strong></h3>
+    <h3>Generacja: <strong>@Generation</strong> | Czas: <strong>@CurrentFrame / @MaxFrames</strong> | Żywych: <strong>@AliveCount</strong></h3>
 
     <div style="border: 2px solid #333; display: inline-block;">
         <BECanvas Width="800" Height="600" @ref="_canvasReference"></BECanvas>
@@ -29,9 +29,11 @@
     private int Generation = 1;
     private double BestFitness = 0;
     private int AliveCount = 0;
+    private int CurrentFrame = 0;
+    private const int MaxFrames = 2000;
 
     private List<Car> Cars = new List<Car>();
-    private const int PopulationSize = 50;
+    private const int PopulationSize = 20;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -51,6 +53,7 @@
             Cars.Add(new Car());
         }
         Generation = 1;
+        CurrentFrame = 0;
         BestFitness = 0;
         AliveCount = PopulationSize;
     }
@@ -75,6 +78,8 @@
     {
         while (IsRunning)
         {
+            CurrentFrame++;
+
             bool allDead = true;
             AliveCount = 0;
 
@@ -89,7 +94,7 @@
                 if (car.Fitness > BestFitness) BestFitness = car.Fitness;
             }
 
-            if (allDead)
+            if (allDead || CurrentFrame >= MaxFrames)
             {
                 EvolveNextGeneration();
             }
@@ -114,11 +119,12 @@
         for (int i = 1; i < PopulationSize; i++)
         {
             var child = new Car(bestCar.Brain);
-            child.Brain.Mutate(0.2);
+            child.Brain.Mutate(0.2);   //szybkość mutacji 0.2
             newCars.Add(child);
         }
 
         Cars = newCars;
+        CurrentFrame = 0;
         Generation++;
     }
 

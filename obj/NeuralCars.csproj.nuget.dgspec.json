@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\NeuralCars.csproj": {}
+    "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\NeuralCars.csproj": {}
   },
   "projects": {
-    "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\NeuralCars.csproj": {
+    "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\NeuralCars.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\NeuralCars.csproj",
+        "projectUniqueName": "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\NeuralCars.csproj",
         "projectName": "NeuralCars",
-        "projectPath": "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\NeuralCars.csproj",
+        "projectPath": "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\NeuralCars.csproj",
         "packagesPath": "C:\\Users\\annak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\obj\\",
+        "outputPath": "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

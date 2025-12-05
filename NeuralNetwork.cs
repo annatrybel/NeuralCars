@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Numerics;
 
 namespace NeuralCars
 {
@@ -11,9 +11,9 @@ namespace NeuralCars
 
         public NeuralNetwork(int inputCount, int outputCount)
         {
-            InputCount = inputCount;
-            OutputCount = outputCount;
-            Weights = new double[InputCount * OutputCount];
+            InputCount = inputCount; 
+            OutputCount = outputCount;  //skręt & prędkość
+            Weights = new double[InputCount * OutputCount];    // - skręca w lewo, + w prawo, 0 prosto
             InitializeWeights();
         }
 
@@ -35,18 +35,18 @@ namespace NeuralCars
         {
             double[] outputs = new double[OutputCount];
 
-            for (int o = 0; o < OutputCount; o++)
+            for (int k = 0; k < OutputCount; k++) //OutputCount=2
             {
                 double sum = 0;
-                for (int i = 0; i < InputCount; i++)
+                for (int i = 0; i < InputCount; i++) //InputCount =4
                 {
-                    int weightIndex = i + (o * InputCount);
-                    sum += inputs[i] * Weights[weightIndex];
+                    int weightIndex = i + (k * InputCount);
+                    sum += inputs[i] * Weights[weightIndex]; // obliczmy obecne położenie przez wagi, aby ustalić skręt lub prędkość
                 }
-                outputs[o] = Math.Tanh(sum);
+                outputs[k] = Math.Tanh(sum); //przekształcamy na wartość  od -1 do 1
             }
 
-            return outputs;
+            return outputs; 
         }
 
         public void Mutate(double rate)
@@ -55,12 +55,12 @@ namespace NeuralCars
             {
                 if (_random.NextDouble() < rate)
                 {
-                    double mutation = (_random.NextDouble() * 2 - 1) * 0.5;
+                    double mutation = (_random.NextDouble() * 2 - 1) * 0.5;  
                     Weights[i] += mutation;
 
                     if (Weights[i] > 1) Weights[i] = 1;
                     if (Weights[i] < -1) Weights[i] = -1;
-                }
+                } 
             }
         }
     }

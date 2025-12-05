@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0G2vqzWQ7Bw=",
+  "dgSpecHash": "cQnV97Yfh9o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\annak\\source\\repos\\NeuralCars\\NeuralCars\\NeuralCars.csproj",
+  "projectFilePath": "C:\\Users\\annak\\source\\repos\\Nowy folder\\NeuralCars\\NeuralCars.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\annak\\.nuget\\packages\\blazor.extensions.canvas\\1.1.1\\blazor.extensions.canvas.1.1.1.nupkg.sha512",
     "C:\\Users\\annak\\.nuget\\packages\\microsoft.aspnetcore.authorization\\9.0.11\\microsoft.aspnetcore.authorization.9.0.11.nupkg.sha512",

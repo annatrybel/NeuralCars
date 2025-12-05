@@ -6,13 +6,13 @@ namespace NeuralCars
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public double Angle { get; set; } 
-        public double Speed { get; set; } = 4.0;
+        public double Angle { get; set; }  //kąt obrotu w radianach
+        public double Speed { get; set; } 
 
         public bool IsDead { get; set; } = false;
-        public double Fitness { get; set; } = 0;
+        public double Fitness { get; set; } = 0;  //licznik punktów
 
-        public NeuralNetwork Brain;
+        public NeuralNetwork Brain;  //decyduje o ruch
 
         private const double MapWidth = 800;
         private const double MapHeight = 600;
@@ -20,10 +20,10 @@ namespace NeuralCars
         public Car()
         {
             Reset();
-            Brain = new NeuralNetwork(4, 2);
+            Brain = new NeuralNetwork(4, 2); 
         }
 
-        public Car(NeuralNetwork parentBrain)
+        public Car(NeuralNetwork parentBrain) //kopiuje mozg rodzica
         {
             Reset();
             Brain = new NeuralNetwork(parentBrain); 
@@ -38,11 +38,11 @@ namespace NeuralCars
             Fitness = 0;
         }
 
-        public void Update()
+        public void Update()  //wywoływana 60 razy na sek
         {
             if (IsDead) return;
 
-            double dTop = Y / MapHeight;
+            double dTop = Y / MapHeight;  //od 0.0 do 1.0.
             double dBottom = (MapHeight - Y) / MapHeight;
             double dLeft = X / MapWidth;
             double dRight = (MapWidth - X) / MapWidth;
@@ -51,10 +51,11 @@ namespace NeuralCars
 
             double[] output = Brain.FeedForward(inputs);
 
-            double turn = output[0] * 0.1; 
+            double turn = output[0] * 0.1; // dla płynności rysowania (0.1 radiana = 5.7 stopnia)
             Angle += turn;
 
-            // 3. FIZYKA RUCHU
+            Speed = (output[1] + 1) * 4;
+
             X += Math.Cos(Angle) * Speed;
             Y += Math.Sin(Angle) * Speed;
 
