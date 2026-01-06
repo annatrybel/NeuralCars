@@ -17,6 +17,9 @@ namespace NeuralCars
         private const double MapWidth = 800;
         private const double MapHeight = 600;
 
+        private double lastX;
+        private double lastY;
+
         public Car()
         {
             Reset();
@@ -42,6 +45,10 @@ namespace NeuralCars
         {
             if (IsDead) return;
 
+            // Zapamiętujemy pozycję przed ruchem
+            lastX = X;
+            lastY = Y;
+
             double dTop = Y / MapHeight;  //od 0.0 do 1.0.
             double dBottom = (MapHeight - Y) / MapHeight;
             double dLeft = X / MapWidth;
@@ -59,7 +66,14 @@ namespace NeuralCars
             X += Math.Cos(Angle) * Speed;
             Y += Math.Sin(Angle) * Speed;
 
-            Fitness += 1; 
+            // Obliczamy dystans przebyty w tej klatce
+            double distanceMoved = Math.Sqrt(Math.Pow(X - lastX, 2) + Math.Pow(Y - lastY, 2));
+
+            //  Nagradzamy prędkość i ruch do przodu, ale karzemy za bardzo ostre skręcanie
+            // (Jeśli turn jest blisko 0, mnożnik jest wysoki. Jeśli auto mocno skręca, dostaje mniej punktów)
+            double movementBonus = distanceMoved * (1.0 - Math.Abs(output[0]) * 0.5);
+
+            Fitness += movementBonus;
 
             if (X < 0 || X > MapWidth || Y < 0 || Y > MapHeight)
             {

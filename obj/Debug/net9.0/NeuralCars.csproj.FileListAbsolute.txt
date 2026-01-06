@@ -2181,10 +2181,10 @@ C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\NeuralCars.d
 C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\refint\NeuralCars.dll
 C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\NeuralCars.pdb
 C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\ref\NeuralCars.dll
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.pow0lj3bzm.wasm
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.oqjh7hbhsa.pdb
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.pow0lj3bzm.wasm.gz
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.oqjh7hbhsa.pdb.gz
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\emycgp6psj-pow0lj3bzm.gz
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\7lxdhvio8l-oqjh7hbhsa.gz
-C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\dw142u2j7r-qaxp1pp3sl.gz
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.yf9bi625vv.wasm
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.t2ule15g8i.pdb
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.yf9bi625vv.wasm.gz
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\bin\Debug\net9.0\wwwroot\_framework\NeuralCars.t2ule15g8i.pdb.gz
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\emycgp6psj-yf9bi625vv.gz
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\7lxdhvio8l-t2ule15g8i.gz
+C:\Users\annak\source\repos\Nowy folder\NeuralCars\obj\Debug\net9.0\compressed\dw142u2j7r-0k8p68v37t.gz

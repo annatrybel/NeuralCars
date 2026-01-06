@@ -108,19 +108,29 @@
 
     private void EvolveNextGeneration()
     {
-        var bestCar = Cars.OrderByDescending(c => c.Fitness).First();
-        BestFitness = bestCar.Fitness;
+        var sortedCars = Cars.OrderByDescending(c => c.Fitness).ToList();
+        BestFitness = sortedCars.First().Fitness;
 
         var newCars = new List<Car>();
 
-        var champion = new Car(bestCar.Brain);
-        champion.Brain.Mutate(0);
+        // Najlepszy osobnik przechodzi bez zmian do następnej rundy
+        var champion = new Car(sortedCars[0].Brain);
         newCars.Add(champion);
-        for (int i = 1; i < PopulationSize; i++)
+
+        // REPRODUKCJA I KRZYŻOWANIE
+        while (newCars.Count < PopulationSize)
         {
-            var child = new Car(bestCar.Brain);
-            child.Brain.Mutate(0.2);   //szybkość mutacji 0.2
-            newCars.Add(child);
+            // Wybieramy dwóch losowych rodziców z górnej połowy stawki (selekcja turniejowa)
+            var parent1 = sortedCars[new Random().Next(0, PopulationSize / 2)];
+            var parent2 = sortedCars[new Random().Next(0, PopulationSize / 2)];
+
+            // Tworzymy dziecko przez krzyżowanie
+            var childBrain = NeuralNetwork.Crossover(parent1.Brain, parent2.Brain);
+
+            // Mutujemy dziecko
+            childBrain.Mutate(0.1); // mniejsza mutacja przy krzyżowaniu jest stabilniejsza
+
+            newCars.Add(new Car(childBrain));
         }
 
         Cars = newCars;

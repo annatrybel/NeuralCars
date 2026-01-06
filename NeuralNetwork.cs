@@ -63,5 +63,18 @@ namespace NeuralCars
                 } 
             }
         }
+
+        public static NeuralNetwork Crossover(NeuralNetwork parent1, NeuralNetwork parent2)
+        {
+            NeuralNetwork child = new NeuralNetwork(parent1.InputCount, parent2.OutputCount);
+            Random rand = new Random();
+
+            for (int i = 0; i < child.Weights.Length; i++)
+            {
+                // 50% szans na gen od rodzica 1, 50% od rodzica 2
+                child.Weights[i] = rand.NextDouble() < 0.5 ? parent1.Weights[i] : parent2.Weights[i];
+            }
+            return child;
+        }
     }
 }
