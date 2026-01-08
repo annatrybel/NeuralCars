@@ -35,6 +35,12 @@
     private List<Car> Cars = new List<Car>();
     private const int PopulationSize = 20;
 
+    private List<(double X, double Y)> Checkpoints = new List<(double X, double Y)>
+    {
+        (100, 100), (400, 50), (700, 100), (750, 300),
+        (700, 500), (400, 550), (100, 500), (50, 300)
+    };
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -85,7 +91,7 @@
 
             foreach (var car in Cars)
             {
-                car.Update();
+                car.Update(Checkpoints);
                 if (!car.IsDead)
                 {
                     allDead = false;
@@ -113,24 +119,23 @@
 
         var newCars = new List<Car>();
 
-        // Najlepszy osobnik przechodzi bez zmian do następnej rundy
-        var champion = new Car(sortedCars[0].Brain);
-        newCars.Add(champion);
+        var championBrain = new NeuralNetwork(sortedCars[0].Brain);
+        var championCar = new Car(championBrain); 
+        newCars.Add(championCar);
 
-        // REPRODUKCJA I KRZYŻOWANIE
+        // reprodukcja i krzyżowanie
+        Random rand = new Random();
         while (newCars.Count < PopulationSize)
         {
-            // Wybieramy dwóch losowych rodziców z górnej połowy stawki (selekcja turniejowa)
-            var parent1 = sortedCars[new Random().Next(0, PopulationSize / 2)];
-            var parent2 = sortedCars[new Random().Next(0, PopulationSize / 2)];
+            var parent1 = sortedCars[rand.Next(0, PopulationSize / 2)];
+            var parent2 = sortedCars[rand.Next(0, PopulationSize / 2)];
 
-            // Tworzymy dziecko przez krzyżowanie
             var childBrain = NeuralNetwork.Crossover(parent1.Brain, parent2.Brain);
 
-            // Mutujemy dziecko
-            childBrain.Mutate(0.1); // mniejsza mutacja przy krzyżowaniu jest stabilniejsza
+            childBrain.Mutate(0.1);
 
-            newCars.Add(new Car(childBrain));
+            var childCar = new Car(childBrain);
+            newCars.Add(childCar);
         }
 
         Cars = newCars;
@@ -146,6 +151,15 @@
 
         await _context.SetFillStyleAsync("#f0f0f0");
         await _context.FillRectAsync(0, 0, 800, 600);
+
+        // Checkpointy
+        await _context.SetFillStyleAsync("rgba(0, 255, 0, 0.2)");
+        foreach (var cp in Checkpoints)
+        {
+            await _context.BeginPathAsync();
+            await _context.ArcAsync(cp.X, cp.Y, 20, 0, Math.PI * 2);
+            await _context.FillAsync();
+        }
 
         foreach (var car in Cars)
         {

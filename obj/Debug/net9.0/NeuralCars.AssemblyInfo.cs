@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeuralCars")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e289e07a42b2c3e0f885fd274a9f085068a47eb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b04991434b39f00e1b635599b3cb4957d112aac")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeuralCars")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeuralCars")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

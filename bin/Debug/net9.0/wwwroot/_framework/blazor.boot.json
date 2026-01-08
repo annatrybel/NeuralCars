@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "NeuralCars",
   "resources": {
-    "hash": "sha256-GMER0LDmSpa1qGuvr9BPMlTMwJhK7U95qznK2uCryWM=",
+    "hash": "sha256-pbrYjUNtrsXnF5o7PuZX8VRQOB0GK37zO4EmHo6gkFc=",
     "fingerprinting": {
       "Blazor.Extensions.Canvas.JS.iokb7a5y98.wasm": "Blazor.Extensions.Canvas.JS.wasm",
       "Blazor.Extensions.Canvas.45bjdsigtk.wasm": "Blazor.Extensions.Canvas.wasm",
@@ -203,8 +203,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "NeuralCars.yf9bi625vv.wasm": "NeuralCars.wasm",
-      "NeuralCars.t2ule15g8i.pdb": "NeuralCars.pdb"
+      "NeuralCars.3etwxygjc7.wasm": "NeuralCars.wasm",
+      "NeuralCars.h9ycgvc49y.pdb": "NeuralCars.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.noby4tlk4d.js": "sha256-p9eEzXhQIsI0a5bBJhfzW15iRafgplTxT8XrO5FiH9o="
@@ -416,10 +416,10 @@
       "WindowsBase.i7qip04bb5.wasm": "sha256-Lg5W8BM50Cpl1dgTrG9RQOrBRKOJq6H1t5sH3yf4KDU=",
       "mscorlib.ijjuvl21w4.wasm": "sha256-ku4DyQX7IfTdwPwDlrz9odvCs4mrgsJl0fNaqY56KOI=",
       "netstandard.jgp13znru0.wasm": "sha256-I7arRnyxWh5PItslQKjzLIG7EpohJACm7p/7K8eD0YA=",
-      "NeuralCars.yf9bi625vv.wasm": "sha256-jo7FdKm1KksOAY/SyHv+axiyKk5DnyCoURKdcP1vyAM="
+      "NeuralCars.3etwxygjc7.wasm": "sha256-y6WmiY0Gmf8ZoYMehwCIhHP0eK2E7SAg3ypelyfwSyI="
     },
     "pdb": {
-      "NeuralCars.t2ule15g8i.pdb": "sha256-e7KvDYzw2GeeVc1dX6gqC09sKxKY66BISWUpaHv3E2M="
+      "NeuralCars.h9ycgvc49y.pdb": "sha256-deS7B4L4jNsuo7XEU4U/R0xmrGq/qQOcp8iX/HzXsX0="
     }
   },
   "cacheBootResources": true,

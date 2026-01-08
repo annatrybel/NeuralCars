@@ -41,7 +41,7 @@ namespace NeuralCars
                 for (int i = 0; i < InputCount; i++) //InputCount =4
                 {
                     int weightIndex = i + (k * InputCount);
-                    sum += inputs[i] * Weights[weightIndex]; // obliczmy obecne położenie przez wagi, aby ustalić skręt lub prędkość
+                    sum += inputs[i] * Weights[weightIndex]; // obliczamy obecne położenie przez wagi, aby ustalić skręt lub prędkość
                 }
                 outputs[k] = Math.Tanh(sum); //przekształcamy na wartość  od -1 do 1
             }

@@ -20,16 +20,18 @@ namespace NeuralCars
         private double lastX;
         private double lastY;
 
+        public int NextCheckpointIndex { get; set; } = 0;
+
         public Car()
         {
             Reset();
             Brain = new NeuralNetwork(4, 2); 
         }
 
-        public Car(NeuralNetwork parentBrain) //kopiuje mozg rodzica
+        public Car(NeuralNetwork brain)
         {
+            Brain = brain;
             Reset();
-            Brain = new NeuralNetwork(parentBrain); 
         }
 
         public void Reset()
@@ -39,9 +41,10 @@ namespace NeuralCars
             Angle = -Math.PI / 2; 
             IsDead = false;
             Fitness = 0;
+            NextCheckpointIndex = 0;
         }
 
-        public void Update()  //wywoływana 60 razy na sek
+        public void Update(List<(double X, double Y)> checkpoints) //wywoływana 60 razy na sek
         {
             if (IsDead) return;
 
@@ -66,14 +69,23 @@ namespace NeuralCars
             X += Math.Cos(Angle) * Speed;
             Y += Math.Sin(Angle) * Speed;
 
-            // Obliczamy dystans przebyty w tej klatce
-            double distanceMoved = Math.Sqrt(Math.Pow(X - lastX, 2) + Math.Pow(Y - lastY, 2));
+            // Logika zaliczania checkpointów
+            if (checkpoints != null && NextCheckpointIndex < checkpoints.Count)
+            {
+                var target = checkpoints[NextCheckpointIndex];
+                double distanceToTarget = Math.Sqrt(Math.Pow(target.X - X, 2) + Math.Pow(target.Y - Y, 2));
 
-            //  Nagradzamy prędkość i ruch do przodu, ale karzemy za bardzo ostre skręcanie
-            // (Jeśli turn jest blisko 0, mnożnik jest wysoki. Jeśli auto mocno skręca, dostaje mniej punktów)
-            double movementBonus = distanceMoved * (1.0 - Math.Abs(output[0]) * 0.5);
+                if (distanceToTarget < 40) // Jeśli auto zbliży się na 40 pikseli
+                {
+                    NextCheckpointIndex++;
+                    Fitness += 1000;
+                }
 
-            Fitness += movementBonus;
+                // Bonus za bycie blisko kolejnego punktu
+                 Fitness += (1 / distanceToTarget) * 10; 
+            }
+
+            Fitness += 1;
 
             if (X < 0 || X > MapWidth || Y < 0 || Y > MapHeight)
             {
